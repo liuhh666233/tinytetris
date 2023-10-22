@@ -1,4 +1,4 @@
-#include <ctime>    
+#include <ctime>
 #include <curses.h> // 不需要更改，curses库的头文件通常没有扩展名
 #include <unistd.h> // 不需要更改，unistd库的头文件通常没有扩展名
 #include <cstdlib>  // 替代 #include <stdlib.h>
@@ -60,6 +60,7 @@ int update_piece()
 {
   set_piece(px, py, pr, 0);
   set_piece(px = x, py = y, pr = r, p + 1);
+  return 0;
 }
 
 // remove line(s) from the board if they're full
@@ -191,4 +192,5 @@ int main()
   box(stdscr, 0, 0);
   runloop();
   endwin();
+  return 0;
 }
