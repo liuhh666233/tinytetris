@@ -29,22 +29,22 @@ void new_piece()
 }
 
 // draw the board and score
-void frame()
-{
-  for (int i = 0; i < 20; i++)
+  void frame()
   {
-    move(1 + i, 1); // otherwise the box won't draw
-    for (int j = 0; j < 10; j++)
+    for (int i = 0; i < 20; i++)
     {
-      board[i][j] && attron(262176 | board[i][j] << 8);
-      printw("  ");
-      attroff(262176 | board[i][j] << 8);
+      move(1 + i, 1); // otherwise the box won't draw
+      for (int j = 0; j < 10; j++)
+      {
+        board[i][j] && attron(262176 | board[i][j] << 8);
+        printw("  ");
+        attroff(262176 | board[i][j] << 8);
+      }
     }
+    move(21, 1);
+    printw("Score: %d", score);
+    refresh();
   }
-  move(21, 1);
-  printw("Score: %d", score);
-  refresh();
-}
 
 // set the value fo the board for a particular (x,y,r) piece
 void set_piece(int x, int y, int r, int v)
@@ -176,8 +176,11 @@ void runloop()
 // init curses and start runloop
 int main()
 {
+  // 初始化随机数生成器
   srand(time(0));
+  // 初始化终端屏幕
   initscr();
+  // 启用颜色模式
   start_color();
   // colours indexed by their position in the block
   for (int i = 1; i < 8; i++)
