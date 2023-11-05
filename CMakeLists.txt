@@ -7,6 +7,8 @@ project(TinyTetris VERSION 1.0)
 
 find_package(Curses  REQUIRED)
 find_package(SFML COMPONENTS graphics window system audio REQUIRED) # Look for SFML
+find_package(spdlog REQUIRED)
+add_compile_definitions(SPDLOG_FMT_EXTERNAL)
 
 # Use the project root to find includes
 include_directories(${PROJECT_SOURCE_DIR})
@@ -23,3 +25,4 @@ target_link_libraries(TinyTetris PRIVATE sfml-graphics sfml-window sfml-system s
 
 target_link_libraries(TinyTetris PRIVATE TetrisLib)
 
+target_link_libraries(TinyTetris PRIVATE spdlog::spdlog)

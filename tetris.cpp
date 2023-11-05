@@ -1,4 +1,5 @@
 #include "tetris.hpp"
+#include "spdlog/spdlog.h"
 
 Tetris::Tetris()
 {
@@ -23,14 +24,14 @@ Tetris::Tetris()
         sf::VideoMode(360, 720),
         "Tetris (remix)",
         sf::Style::Titlebar | sf::Style::Close);
-    window->setPosition(sf::Vector2i(100, 100));
+    window->setPosition(sf::Vector2i(500, 750));
 
-    tiles.loadFromFile("./resources/img/squares.png");
+    tiles.loadFromFile("/home/nixos/github/tinytetris/resources/img/squares.png");
     sprite = std::make_shared<sf::Sprite>();
     sprite->setTexture(tiles);
     sprite->setTextureRect(sf::IntRect(0, 0, 36, 36));
 
-    bg.loadFromFile("./resources/img/background.png");
+    bg.loadFromFile("/home/nixos/github/tinytetris/resources/img/background.png");
     background = std::make_shared<sf::Sprite>();
     background->setTexture(bg);
 
@@ -43,11 +44,11 @@ Tetris::Tetris()
     std::uint32_t number = std::rand() % shapes;
     for (std::size_t i{}; i < squares; ++i)
     {
-        z[i].x = forms[number][i] % 2;
+        z[i].x = forms[number][i] % 2 + 4;
         z[i].y = forms[number][i] / 2;
     }
 
-    font.loadFromFile("./resources/font/font.ttf");
+    font.loadFromFile("/home/nixos/github/tinytetris/resources/font/font.ttf");
     txtScore.setFont(font);
     txtScore.setPosition(100.f, 10.f);
     txtScore.setString("SCORE: " + std::to_string(score));
@@ -95,7 +96,8 @@ void Tetris::events()
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
-        delay = 0.05f;
+        delay = static_cast<float>(std::rand() % 6 + 1) / 100;
+        spdlog::info("Current delay {:f}", delay);
     }
 }
 
@@ -171,7 +173,7 @@ void Tetris::moveToDown()
             std::uint32_t number = std::rand() % shapes;
             for (std::size_t i{}; i < squares; ++i)
             {
-                z[i].x = forms[number][i] % 2;
+                z[i].x = forms[number][i] % 2 + 4;
                 z[i].y = forms[number][i] / 2;
             }
         }
