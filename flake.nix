@@ -66,6 +66,7 @@
                    abseil-cpp
                    nlohmann_json
                    ncurses
+                   sfml
                    redis-plus-plus
                    vscode-include-fix
                  ];
